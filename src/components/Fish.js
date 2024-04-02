@@ -3,10 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem, updateItem } from "../redux/slices/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import img1 from "../img/12.jpg";
-import img2 from "../img/13.jpg";
-import img3 from "../img/14.jpg";
-import img4 from "../img/15.jpg";
 
 const Fish = () => {
   const [fishData, setFishData] = useState([]);
@@ -19,7 +15,7 @@ const Fish = () => {
   const items = useSelector((state) => state.cart);
 
   useEffect(() => {
-    fetch("http://localhost:4000/fish")
+    fetch("https://finnobackend.onrender.com/api/fish")
       .then((response) => response.json())
       .then((data) => {
         setFishData(data);
