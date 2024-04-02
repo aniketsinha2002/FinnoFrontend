@@ -3,7 +3,7 @@ import Header from "./Header";
 import Fish from "./Fish";
 const Home = () => {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Header />
       <Fish />
     </div>

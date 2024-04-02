@@ -19,7 +19,7 @@ const Cart = () => {
       totalQty: items.length.toString(),
     };
 
-    fetch("http://localhost:4000/orders", {
+    fetch("https://finnobackend.onrender.com/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,9 @@ const Cart = () => {
   return (
     <div>
       {isOrderPlaced ? (
-        <p>Order placed successfully!</p>
+        <div className="text-4xl m-4 p-4 justify-center items-center flex h-[100vh]">
+          Order placed successfully!
+        </div>
       ) : (
         <>
           <div className="text-4xl m-4 p-4 justify-center items-center flex h-[100vh]">

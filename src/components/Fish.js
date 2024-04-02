@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Fish = () => {
+  const [showMore, setShowMore] = useState(false);
+
   const [fishData, setFishData] = useState([]);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedCuttingType, setSelectedCuttingType] = useState(""); // State for selected cutting type
@@ -96,12 +98,12 @@ const Fish = () => {
   };
 
   return (
-    <div className="boyal-fish-details ">
-      <div className="m-10 px-20 py-10 shadow-lg border-2">
-        <h3 className="flex justify-center text-[#475f7b] font-bold py-10 text-2xl">
+    <div className="boyal-fish-details">
+      <div className="sm:m-10 sm:px-20 sm:py-10 m-2 px-2 shadow-lg border-2 ">
+        <div className="flex justify-center sm:-ml-20 text-[#475f7b] font-bold py-10 sm:text-2xl">
           {fishData[0]?.title}
-        </h3>
-        <div className="flex items-start truncate justify-start">
+        </div>
+        <div className="flex items-start justify-start truncate whitespace-break-spaces ">
           <div className="w-[400px] border-solid border-4 border-[#419ae1] rounded-lg relative mt-20">
             <img
               src="https://res.cloudinary.com/dqbxgjov1/image/upload/v1710354800/timoom2rt8qlasatvtyt.jpg"
@@ -109,7 +111,12 @@ const Fish = () => {
               style={{ marginTop: "20px" }}
             />
           </div>
-          <div className="px-10 w-1/3">
+          <div className="sm:px-[50px] px-[20px] sm:w-4/5 w-[75%]">
+            <div className="py-2">
+              <div className="bg-[#51CF66] w-[140px] text-center text-white rounded-2xl px-1 text-sm font-semibold py-1 uppercase">
+                {fishData[0]?.name}
+              </div>
+            </div>
             <h4 className="font-bold text-xl">{fishData[0]?.price}</h4>
             <div className="flex text-xl py-2">
               <p className="">Quantity -</p>
@@ -117,36 +124,45 @@ const Fish = () => {
             </div>
 
             <div className="product-details">
-              <h3 className="py-2">PRODUCT DETAILS</h3>
-              <p>
-                <strong>Description:</strong> {fishData[0]?.description}
-              </p>
-              <p>Product code - {fishData[0]?.order_id}</p>
-              <p>
-                <strong className="py-2">Product Category:</strong>{" "}
-                {fishData[0]?.name}
-              </p>
-              <p>
-                <strong className="py-2">Country Of Origin:</strong>{" "}
-                {fishData[0]?.country}
-              </p>
+              <div className="py-2">{fishData[0]?.description}</div>
+              <div className="py-2 text-xl">
+                Product code - {fishData[0]?.order_id}
+              </div>
+
+              <div className="flex flex-row py-2 text-xl">
+                <div className="font-bold">Country Of Origin:</div>
+                <div className="px-2">{fishData[0]?.country}</div>
+              </div>
             </div>
 
-            <div className="nutritional-values">
-              <h3 className="font-bold py-2">Nutritional Values:</h3>
-              <p>{fishData[0]?.NutValues_des}</p>
-              <ul>
-                <li>Energy: {fishData[0]?.NutValues_energy}</li>
-                <li>Protein: {fishData[0]?.Protin}</li>
-                <li>Total Fat: {fishData[0]?.TotalFat}</li>
-                <li>Carbohydrates: {fishData[0]?.Carbohydrates}</li>
-              </ul>
+            {/* VIEW MOREEEEEEEEEEEEEEEEEEEEEEEEEEEE */}
+            <div
+              className="mr-2 mt-5 mb-5 py-4 px-2 rounded-3xl bg-[#5EAAE5] text-white shadow-inner shadow-[#419ae1] cursor-pointer w-[100px] text-sm font-semibold"
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore ? "View More ^" : "View More v"}
             </div>
 
-            <div className="return-refund-policy">
-              <h3 className="font-bold py-2">Return & Refund Policy</h3>
-              <p>{fishData[0]?.RefundPolicy}</p>
-            </div>
+            {showMore && (
+              <div className="">
+                <div className="nutritional-values">
+                  <h3 className="font-bold py-2">Nutritional Values:</h3>
+                  <p>{fishData[0]?.NutValues_des}</p>
+                  <ul>
+                    <li>Energy: {fishData[0]?.NutValues_energy}</li>
+                    <li>Protein: {fishData[0]?.Protin}</li>
+                    <li>Total Fat: {fishData[0]?.TotalFat}</li>
+                    <li>Carbohydrates: {fishData[0]?.Carbohydrates}</li>
+                  </ul>
+                </div>
+
+                <div className="return-refund-policy">
+                  <h3 className="font-bold py-2">Return & Refund Policy</h3>
+                  <p>{fishData[0]?.RefundPolicy}</p>
+                </div>
+              </div>
+            )}
+            {/*VIEW MOREEEEEEEEEEE ENDDDDDDDDDDDDDDD*/}
 
             <form onSubmit={(e) => e.preventDefault()}>
               <div className="size-selection">
@@ -159,72 +175,81 @@ const Fish = () => {
                 </select>
               </div>
 
-              <div className="cutting-type-selection">
-                <h3 className="font-bold py-2">Cutting Type</h3>
-                <div
-                  className={`mr-2 py-2 px-2 rounded-2xl border-2 border-[#1b384f] cursor-pointer w-40 ${
-                    selectedCuttingType === "Gada Petti" ? "bg-[#419ae1]" : ""
-                  }`}
-                  onClick={() => toggleCuttingType("Gada Petti")}
-                >
-                  Gada Petti
+              <div>
+                <div className="cutting-type-selection">
+                  <h3 className="font-bold py-2">Cutting Type</h3>
+                  <div
+                    className={`mr-2 py-2 px-2 rounded-2xl border-2 border-[#419ae1] shadow-md shadow-slate-500 cursor-pointer w-[100px] text-center${
+                      selectedCuttingType === "Gada Petti"
+                        ? " bg-[#419ae1]"
+                        : ""
+                    }`}
+                    onClick={() => toggleCuttingType("Gada Petti")}
+                  >
+                    Gada Petti
+                  </div>
+                </div>
+
+                <div className="total-piece">
+                  <h3 className="font-bold py-2">Piece Size</h3>
+                  <div className="flex sm:flex-row flex-col gap-y-4">
+                    <div
+                      className={`mr-2 py-2 px-2 rounded-2xl border-2 border-[#419ae1] shadow-md shadow-slate-500 cursor-pointer w-[170px] text-center${
+                        selectedPieceSize === "small" ? " bg-[#419ae1]" : ""
+                      }`}
+                      onClick={() => {
+                        setSelectedPieceSize("small");
+                        setErrorMessage("");
+                      }}
+                    >
+                      Small (40 gm - 60)
+                    </div>
+                    <div
+                      className={`mr-2 py-2 px-2 rounded-2xl border-2 border-[#419ae1] shadow-md shadow-slate-500 cursor-pointer w-[170px] text-center${
+                        selectedPieceSize === "medium" ? " bg-[#419ae1]" : ""
+                      }`}
+                      onClick={() => {
+                        setSelectedPieceSize("medium");
+                        setErrorMessage("");
+                      }}
+                    >
+                      Medium (40 gm - 60)
+                    </div>
+                    <div
+                      className={`mr-2 py-2 px-2 rounded-2xl border-2 border-[#419ae1] shadow-md shadow-slate-500 cursor-pointer w-[170px] text-center${
+                        selectedPieceSize === "large" ? " bg-[#419ae1]" : ""
+                      }`}
+                      onClick={() => {
+                        setSelectedPieceSize("large");
+                        setErrorMessage("");
+                      }}
+                    >
+                      Large (40 gm - 60)
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="total-price">
-                <h3 className="font-bold py-2">Piece Size</h3>
+              <div className="total-price text-xl py-4">
                 <div className="flex flex-row">
-                  <div
-                    className={`mr-2 py-2 px-2 rounded-2xl border-2 border-[#1b384f] cursor-pointer w-40 ${
-                      selectedPieceSize === "small" ? "bg-[#419ae1]" : ""
-                    }`}
-                    onClick={() => {
-                      setSelectedPieceSize("small");
-                      setErrorMessage("");
-                    }}
-                  >
-                    Small (40 gm - 60)
-                  </div>
-                  <div
-                    className={`mr-2 py-2 px-2 rounded-2xl border-2 border-[#1b384f] cursor-pointer w-40 ${
-                      selectedPieceSize === "medium" ? "bg-[#419ae1]" : ""
-                    }`}
-                    onClick={() => {
-                      setSelectedPieceSize("medium");
-                      setErrorMessage("");
-                    }}
-                  >
-                    Medium (40 gm - 60)
-                  </div>
-                  <div
-                    className={`mr-2 py-2 px-2 rounded-2xl border-2 border-[#1b384f] cursor-pointer w-40 ${
-                      selectedPieceSize === "large" ? "bg-[#419ae1]" : ""
-                    }`}
-                    onClick={() => {
-                      setSelectedPieceSize("large");
-                      setErrorMessage("");
-                    }}
-                  >
-                    Large (40 gm - 60)
-                  </div>
+                  <div>Total Payable: </div>
+                  <div className="font-bold ml-3">₹{totalPrice}</div>
                 </div>
               </div>
-
-              <div className="total-price text-xl py-4 font-bold">
-                <p>Total Price: ₹{totalPrice.toFixed(2)}</p>
-              </div>
-              <div className="flex flex-row py-2">
-                <div className="font-bold mt-2">Quantity:</div>
+              <div className="flex flex-row my-4">
+                <div className="text-xl mt-2">Quantity:</div>
                 <div className="flex flex-row items-center px-4">
                   <div
-                    className="px-2 text-3xl cursor-pointer bg-blue-400 border-2 rounded-3xl"
+                    className="px-2 text-3xl cursor-pointer sm:mr-2 py-1 rounded-full border-2 border-[#419ae1] shadow-md shadow-slate-500"
                     onClick={handleIncrement}
                   >
                     +
                   </div>
-                  <div className="px-2">{selectedQuantity}</div>
+                  <div className="sm:ml-6 sm:mr-6 px-2 font-bold text-xl">
+                    {selectedQuantity}
+                  </div>
                   <div
-                    className="px-2 text-3xl cursor-pointer bg-blue-400 border-2 rounded-3xl"
+                    className="ml-2 px-2 text-3xl cursor-pointer mr-2 py-1 rounded-full border-2 border-[#419ae1] shadow-md shadow-slate-500"
                     onClick={handleDecrement}
                   >
                     -
@@ -232,7 +257,7 @@ const Fish = () => {
                 </div>
               </div>
               <button
-                className="bg-blue-400 border-2 p-4 rounded-lg"
+                className="mr-2 py-2 px-2 rounded-3xl border-2 border-[#419ae1] cursor-pointer w-40 shadow-lg shadow-slate-300"
                 onClick={handleClick}
               >
                 Add to Cart
@@ -248,60 +273,68 @@ const Fish = () => {
             Why Buy from FinnoFarms?
           </h3>
         </div>
-        <div className="mt-4 flex justify-between">
+        <div className="mt-4 flex justify-between truncate text-wrap">
           <div className="">
-            <div className="grid">
+            <div className="grid ">
               <div className="flex flex-col">
                 <div className="font-bold">Sustainable & Hygienic Sourcing</div>
-                <div className="flex flex-row justify-between">
-                  <div className="w-[180px] p-2">
+                <div className="flex sm:flex-row flex-col justify-between ">
+                  <div className="sm:w-[180px] w-[160px] p-2">
                     <img
                       className=""
                       src="https://res.cloudinary.com/dqbxgjov1/image/upload/v1710616503/WhyFinnoFarmsLogo/Fishes/ice0uko44zforfjqhtbv.svg"
                       alt=""
                     />
                   </div>
-                  <div className="ml-20 px-40 py-5">{fishData[0]?.SHS}</div>
+                  <div className="sm:ml-20 sm:px-40 py-5 ">
+                    {fishData[0]?.SHS}
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col">
                 <div className="font-bold">Sustainable & Hygienic Sourcing</div>
-                <div className="flex flex-row justify-between">
-                  <div className="w-[180px] p-2">
+                <div className="flex sm:flex-row flex-col justify-between">
+                  <div className="sm:w-[180px] w-[160px] p-2">
                     <img
                       className=""
                       src="https://res.cloudinary.com/dqbxgjov1/image/upload/v1710616503/WhyFinnoFarmsLogo/Fishes/byyx05lasw3qtdgp6uhj.svg"
                       alt=""
                     />
                   </div>
-                  <div className="ml-20 px-40 py-5">{fishData[0]?.SHS}</div>
+                  <div className="sm:ml-20 sm:px-40 py-5">
+                    {fishData[0]?.SHS}
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col">
                 <div className="font-bold">Sustainable & Hygienic Sourcing</div>
-                <div className="flex flex-row">
-                  <div className="w-[180px] p-2">
+                <div className="flex sm:flex-row flex-col justify-between">
+                  <div className="sm:w-[180px] w-[160px] p-2">
                     <img
                       className=""
                       src="https://res.cloudinary.com/dqbxgjov1/image/upload/v1710616503/WhyFinnoFarmsLogo/Fishes/qi6ydaxxg88lf83vr1uf.svg"
                       alt=""
                     />
                   </div>
-                  <div className="ml-20 px-40 py-5">{fishData[0]?.SHS}</div>
+                  <div className="sm:ml-20 sm:px-40 py-5">
+                    {fishData[0]?.SHS}
+                  </div>
                 </div>
               </div>
 
               <div className="flex flex-col">
                 <div className="font-bold">Sustainable & Hygienic Sourcing</div>
-                <div className="flex flex-row">
-                  <div className="w-[180px] p-2">
+                <div className="flex sm:flex-row flex-col justify-between">
+                  <div className="sm:w-[180px] w-[160px] p-2">
                     <img
                       className=""
                       src="https://res.cloudinary.com/dqbxgjov1/image/upload/v1710616505/WhyFinnoFarmsLogo/Fishes/elq5a8bfkebjmbnqxbkp.svg"
                       alt=""
                     />
                   </div>
-                  <div className="ml-20 px-40 py-5">{fishData[0]?.SHS}</div>
+                  <div className="sm:ml-20 sm:px-40 py-5">
+                    {fishData[0]?.SHS}
+                  </div>
                 </div>
               </div>
             </div>

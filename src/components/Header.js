@@ -8,23 +8,23 @@ const Header = () => {
   const total = items.reduce((acc, curr) => acc + curr.price, 0);
 
   return (
-    <div className="flex justify-between bg-[#93CBF6] shadow-lg">
-      <div className=" ml-40 w-[120px] mt-2 py-4 ">
+    <div className="flex justify-between bg-[#93CBF6] shadow-lg gap-x-10">
+      <div className=" sm:ml-40 sm:w-[120px] w-[80px] ml-5 sm:mt-2 py-4 ">
         <img
           className=""
           src="https://res.cloudinary.com/dqbxgjov1/image/upload/v1701746742/without_bg_white_text-cropped_ykiihu.svg"
           alt=""
         />
       </div>
-      <div className="flex mt-2 ">
+      <div className="flex mt-2 -mr-20">
         {/* Display total price
         <p className="m-2 px-4 py-8 font-bold text-green-600 font-mono text-xl">
           CART VALUE: $ {total.toFixed(2)}
         </p> */}
-        <Link to="/cart" className="py-4">
-          <div className="rounded-md m-2 flex row">
+        <Link to="/cart" className="sm:py-4 py-2">
+          <div className="rounded-md sm:m-2 flex row ">
             <svg
-              className="filter invert w-10"
+              className="filter invert sm:w-10 w-8"
               focusable="false"
               aria-hidden="true"
               viewBox="0 0 24 24"
